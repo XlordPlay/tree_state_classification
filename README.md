@@ -1,39 +1,70 @@
 README: DL-модель для классификации состояния деревьев
 
+Tree Health Classification Project
 Описание проекта
 
-Цель проекта - построить DL-модель для классификации состояния деревьев (Good, Fair, Poor) на основе данных из 2015 Street Tree Census в Нью-Йорке.
+Цель проекта — построить DL-модель для классификации состояния дерева (Good, Fair, Poor) по данным 2015 Street Tree Census (NYC).
+Классификация поможет понять, какие факторы влияют на здоровье городских деревьев.
+Данные
 
-Выбор признаков
+Датасет: 2015 Street Tree Census Tree Data (NYC).
+Основные признаки:
 
-Для классификации состояния деревьев выбраны следующие поля из датасета:
+    tree_dbh: Диаметр дерева на уровне груди (числовое значение).
+    curb_loc: Расположение дерева относительно бордюра (OnCurb, OffsetFromCurb).
+    steward: Признаки ухода за деревом (None/1or2/3or4/4orMore).
+    guards: Тип защиты дерева (Harmful/Helpful/None/Unsure).
+    sidewalk: Повреждение тротуара рядом с деревом (Damage/NoDamage).
+    root_stone, root_grate, root_other: Проблемы с корнями (Yes/No).
+    trunk_wire, trnk_light, trnk_other: Проблемы со стволом (Yes/No).
+    brch_light, brch_shoe, brch_other: Проблемы с ветвями (Yes/No).
+    spc_latin или spc_common: Латинское или общее название дерева.
 
-Поля для использования в модели
+Целевая переменная:
 
-tree_dbh - Диаметр дерева на уровне груди (числовое значение).
+    health: Состояние дерева (Good/Fair/Poor).
 
-curb_loc - Расположение дерева относительно бордюра (OnCurb, OffsetFromCurb).
+Поля, которые удалены:
+    
+    tree_id, block_id, created_at: не содержат полезной информации для классификации.
 
-steward - Количество признаков ухода за деревом (None, 1or2, 3or4, 4orMore).
+    Географические поля (latitude, longitude, zipcode, boroname): исключены из-за низкой корреляции с состоянием деревьев.
 
-guards - Тип защиты дерева (Harmful, Helpful, None, Unsure).
+    Административные поля (user_type, nta_name, и др.): не влияют на здоровье дерева.
 
-sidewalk - Повреждение тротуара рядом с деревом (Damage, NoDamage).
+Структура репозитория
 
-root_stone, root_grate, root_other - Проблемы с корнями (Yes, No).
+    notebooks/eda.ipynb: Анализ и предобработка данных.
+    src/train.py: Скрипт для обучения модели.
+    src/inference.py: Скрипт для предсказаний.
+    app/main.py: Простое API на FastAPI.
+    README.md: Описание проекта и инструкции по запуску.
 
-trunk_wire, trnk_light, trnk_other - Проблемы со стволом (Yes, No).
+Используемые технологии
 
-brch_light, brch_shoe, brch_other - Проблемы с ветвями (Yes, No).
+    Python
+    PyTorch
+    FastAPI
+    Pandas, NumPy, Matplotlib, Seaborn (для анализа данных)
 
-spc_latin или spc_common - Латинское или общее название дерева.
+Запуск проекта
 
-health - Состояние дерева (целевая переменная).
+    Клонируйте репозиторий:
 
-Поля, которые исключены
+git clone https://github.com/ваш-репозиторий.git
+cd ваш-репозиторий
 
-tree_id, block_id, created_at: не содержат полезной информации для классификации.
+Установите зависимости:
 
-Географические поля (latitude, longitude, zipcode, boroname): исключены из-за низкой корреляции с состоянием деревьев.
+pip install -r requirements.txt
 
-Административные поля (user_type, nta_name, и др.): не влияют на здоровье дерева.
+Проведите обучение:
+
+python src/train.py
+
+Запустите API:
+
+    uvicorn app.main:app --reload
+
+    Используйте эндпоинт /predict для предсказаний.
+
