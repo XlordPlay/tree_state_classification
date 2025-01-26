@@ -128,7 +128,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+EDA
+tree_state_classificator_env
 tree_state_classificator_env/
+ main
 .env
 .venv
 env/
