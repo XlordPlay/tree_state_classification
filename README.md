@@ -11,14 +11,11 @@ Tree Health Classification Project
 Основные признаки:
 
     tree_dbh: Диаметр дерева на уровне груди (числовое значение).
-    curb_loc: Расположение дерева относительно бордюра (OnCurb, OffsetFromCurb).
-    steward: Признаки ухода за деревом (None/1or2/3or4/4orMore).
-    guards: Тип защиты дерева (Harmful/Helpful/None/Unsure).
-    sidewalk: Повреждение тротуара рядом с деревом (Damage/NoDamage).
-    root_stone, root_grate, root_other: Проблемы с корнями (Yes/No).
-    trunk_wire, trnk_light, trnk_other: Проблемы со стволом (Yes/No).
-    brch_light, brch_shoe, brch_other: Проблемы с ветвями (Yes/No).
+    trnk_other: Проблемы со стволом (Yes/No).
+    brch_other: Проблемы с ветвями (Yes/No).
     spc_latin или spc_common: Латинское или общее название дерева.
+    x_sp,y_sp,longitude,latitude:Координаты.
+    census_tract,council_district
 
 Целевая переменная:
 
@@ -28,9 +25,11 @@ Tree Health Classification Project
     
     tree_id, block_id, created_at: не содержат полезной информации для классификации.
 
-    Географические поля (latitude, longitude, zipcode, boroname): исключены из-за низкой корреляции с состоянием деревьев.
+    Географические поля (zipcode, boroname): исключены из-за низкой корреляции с состоянием деревьев.
 
     Административные поля (user_type, nta_name, и др.): не влияют на здоровье дерева.
+
+    все остальные признаки удалены ввиду отсутствия информативности
 
 Структура репозитория
 
@@ -45,28 +44,62 @@ Tree Health Classification Project
     Python
     PyTorch
     FastAPI
-    Pandas, NumPy, Matplotlib, Seaborn (для анализа данных)
+    Pandas, NumPy, Matplotlib, Seaborn, scipy (для анализа данных)
 
-Запуск проекта
+Установка:
 
-    Клонируйте репозиторий:
+### 1. Создайте виртуальное окружение
 
-git clone https://github.com/ваш-репозиторий.git
-cd ваш-репозиторий
+Перейдите в директорию вашего проекта и создайте виртуальное окружение. Например, вы можете использовать `venv`:
 
-Установите зависимости:
+```bash
+cd tree_state_classification
+python -m venv tree_state_classificator_env
+```
 
+### 2. Активируйте виртуальное окружение
+
+После создания окружения активируйте его:
+
+- **Для Linux/MacOS:**
+
+```bash
+source tree_state_classificator_env/bin/activate
+```
+
+- **Для Windows:**
+
+```bash
+.\tree_state_classificator_env\Scripts\activate
+```
+
+### 3. Установите зависимости
+
+Теперь, когда виртуальное окружение активно, установите зависимости:
+
+```bash
 pip install -r requirements.txt
+```
 
-Проведите обучение:
+### 4. Запустите FastAPI
 
-python src/train.py
+Запустите приложение FastAPI с помощью `uvicorn`:
 
-Запустите API:
+```bash
+uvicorn app.main:app --reload
+```
 
-    uvicorn app.main:app --reload
+### 5. Доступ к API
 
-    Используйте эндпоинт /predict для предсказаний.
+Теперь вы можете получить доступ к вашему API по адресу:
+
+```
+http://127.0.0.1:8000
+```
+
+И используйте эндпоинт `/predict` для предсказаний.
+
+Если у вас возникнут дополнительные вопросы или потребуется помощь, дайте знать!
 
 
 Выбор архитектуры и построение DL-модели
