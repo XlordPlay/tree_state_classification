@@ -10,7 +10,7 @@ import numpy as np
 import joblib
 
 # Загрузка данных
-df = pd.read_csv("/home/xlordplay/tree_state_classificator/tree_state_classification/data/2015-street-tree-census-tree-data.csv")
+df = pd.read_csv("../data/2015-street-tree-census-tree-data.csv")
 
 # Кодирование целевой переменной
 df['health_encoded'] = df['health'].map({"Good": 2, "Fair": 1, "Poor": 0})

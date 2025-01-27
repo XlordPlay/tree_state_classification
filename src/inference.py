@@ -6,7 +6,7 @@ from sklearn.impute import SimpleImputer
 
 # Загрузка модели
 model = ImprovedHealthModel()
-model.load_state_dict(torch.load("/home/xlordplay/tree_state_classificator/tree_state_classification/tree_health_model.pth", weights_only=True))
+model.load_state_dict(torch.load("../tree_health_model.pth", weights_only=True))
 model.eval()
 
 # Загрузка трансформеров
@@ -14,7 +14,7 @@ column_transformer = joblib.load('column_transformer.pkl')
 scaler = joblib.load('scaler.pkl')
 
 # Загрузка данных
-inference_df = pd.read_csv("/home/xlordplay/tree_state_classificator/tree_state_classification/data/inference_data.csv")
+inference_df = pd.read_csv("../data/inference_data.csv")
 
 # Определение признаков
 important_features = [
@@ -66,7 +66,7 @@ else:
         inference_df['predicted_health'] = inference_df['predicted_health'].map(class_mapping)
 
         # Сохранение результатов
-        inference_df.to_csv("/home/xlordplay/tree_state_classificator/tree_state_classification/data/inference_results.csv", index=False)
+        inference_df.to_csv("../data/inference_results.csv", index=False)
         print(inference_df)
     else:
         print(f"Ошибка: длины не совпадают! Предсказания: {len(predicted_classes)}, Данные: {len(inference_df)}")
