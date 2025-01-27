@@ -6,11 +6,9 @@ import joblib
 from sklearn.impute import SimpleImputer
 import sys
 import os
-
-# Добавить src в sys.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '../src'))
-
 from train_model import ImprovedHealthModel
+
 # Загрузка модели и трансформеров
 model = ImprovedHealthModel()
 model.load_state_dict(torch.load("../tree_health_model.pth", weights_only=True))
