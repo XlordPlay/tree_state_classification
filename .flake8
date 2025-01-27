@@ -1,0 +1,4 @@
+[flake8]
+exclude = tree_state_classificator_env/*
+max-line-length = 88
+extend-ignore = E203, E266, E501, W503
