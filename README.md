@@ -33,7 +33,7 @@ Tree Health Classification Project
 
 Структура репозитория
 
-    notebooks/eda.ipynb: Анализ и предобработка данных.
+    EDA/eda.ipynb: Анализ и предобработка данных.
     src/train.py: Скрипт для обучения модели.
     src/inference.py: Скрипт для предсказаний.
     app/main.py: Простое API на FastAPI.
@@ -102,6 +102,104 @@ http://127.0.0.1:8000
 Если у вас возникнут дополнительные вопросы или потребуется помощь, дайте знать!
 
 
+
+
+### Примеры использования API
+
+#### 1. Пример запроса с использованием `curl`
+
+Вы можете использовать `curl` для отправки POST-запроса к вашему API. Вот пример:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/predict" \
+-H "Content-Type: application/json" \
+-d '{
+  "tree_dbh": 15.0,
+  "curb_loc": "OnCurb",
+  "steward": "1or2",
+  "guards": "Helpful",
+  "sidewalk": "NoDamage",
+  "root_stone": "No",
+  "root_grate": "Yes",
+  "root_other": "No",
+  "trunk_wire": "No",
+  "trnk_light": "Yes",
+  "trnk_other": "No",
+  "brch_light": "No",
+  "brch_shoe": "No",
+  "brch_other": "No",
+  "spc_latin": "Quercus rubra",
+  "spc_common": "Northern Red Oak"
+}'
+```
+
+#### 2. Пример запроса с использованием Python (requests)
+
+Если вы предпочитаете использовать Python, вы можете воспользоваться библиотекой `requests`:
+
+```python
+import requests
+
+url = "http://127.0.0.1:8000/predict"
+data = {
+    "tree_dbh": 15.0,
+    "curb_loc": "OnCurb",
+    "steward": "1or2",
+    "guards": "Helpful",
+    "sidewalk": "NoDamage",
+    "root_stone": "No",
+    "root_grate": "Yes",
+    "root_other": "No",
+    "trunk_wire": "No",
+    "trnk_light": "Yes",
+    "trnk_other": "No",
+    "brch_light": "No",
+    "brch_shoe": "No",
+    "brch_other": "No",
+    "spc_latin": "Quercus rubra",
+    "spc_common": "Northern Red Oak"
+}
+
+response = requests.post(url, json=data)
+print(response.json())
+```
+
+#### 3. Пример запроса с использованием Postman
+
+Если вы предпочитаете графический интерфейс, вы можете использовать Postman:
+
+1. Откройте Postman и создайте новый запрос.
+2. Выберите метод `POST`.
+3. Введите URL: `http://127.0.0.1:8000/predict`.
+4. Перейдите на вкладку `Body`, выберите `raw` и установите тип `JSON`.
+5. Вставьте следующий JSON:
+
+```json
+{
+  "tree_dbh": 15.0,
+  "curb_loc": "OnCurb",
+  "steward": "1or2",
+  "guards": "Helpful",
+  "sidewalk": "NoDamage",
+  "root_stone": "No",
+  "root_grate": "Yes",
+  "root_other": "No",
+  "trunk_wire": "No",
+  "trnk_light": "Yes",
+  "trnk_other": "No",
+  "brch_light": "No",
+  "brch_shoe": "No",
+  "brch_other": "No",
+  "spc_latin": "Quercus rubra",
+  "spc_common": "Northern Red Oak"
+}
+```
+
+6. Нажмите `Send` и посмотрите ответ.
+
+### Заключение
+
+Эти примеры помогут вам протестировать ваш API и понять, как использовать его для получения предсказаний о состоянии деревьев. Если вам нужно что-то специфическое или есть другие вопросы, дайте знать!
 Выбор архитектуры и построение DL-модели
 1. Обоснование выбора архитектуры
 
